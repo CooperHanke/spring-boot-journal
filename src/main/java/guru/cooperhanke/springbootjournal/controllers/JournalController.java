@@ -2,7 +2,6 @@ package guru.cooperhanke.springbootjournal.controllers;
 
 import guru.cooperhanke.springbootjournal.entities.Journal;
 import guru.cooperhanke.springbootjournal.repos.JournalRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +13,15 @@ import java.util.List;
 @Controller
 public class JournalController {
 
-    @Autowired
-    JournalRepo repo;
+    private JournalRepo repo;
+
+    JournalController(JournalRepo repo) {
+        this.repo = repo;
+    }
 
     @RequestMapping(value = "/journal", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public @ResponseBody
-    List<Journal> getJournal() {
+    @ResponseBody
+    public List<Journal> getJournal() {
         return repo.findAll();
     }
 
